@@ -1,0 +1,41 @@
+name: PR Verification
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  hygiene-check:
+    name: Repository Hygiene & Secret Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for forbidden files (.env, dumps, OS artifacts)
+        run: |
+          echo "Проверка на наличие запрещенных файлов в репозитории..."
+          FORBIDDEN_FILES=$(find . -type f \( \
+            -name ".env" -o \
+            -name ".env.local" -o \
+            -name "*.dump" -o \
+            -name "*.sqlite3" -o \
+            -name ".DS_Store" -o \
+            -name "Thumbs.db" \
+          \))
+          if [ -n "$FORBIDDEN_FILES" ]; then
+            echo "::error::Обнаружены запрещенные файлы в репозитории:"
+            echo "$FORBIDDEN_FILES"
+            echo "Пожалуйста, удалите их из отслеживания Git командой: git rm --cached <файл>"
+            exit 1
+          fi
+          echo "Запрещенных файлов не обнаружено."
+
+      - name: Scan for committed secrets (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
