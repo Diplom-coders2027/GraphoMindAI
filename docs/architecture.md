@@ -13,7 +13,7 @@ flowchart TB
     Pre["Предобработка<br/>OpenCV, Pillow, numpy"]
     Model["Модель PyTorch<br/>CNN + BiLSTM + CTC"]
     Train["Обучение + метрики<br/>CER / WER"]
-    DS[("Датасеты<br/>IAM, CVL, Russian Handwritten")]
+    DS[("Датасеты<br/>School Notebooks Dataset")]
     W[("Веса модели")]
 
     User -->|изображение| CLI
@@ -42,7 +42,7 @@ flowchart TB
 | Предобработка (OpenCV, Pillow, numpy) | Приводит изображение к единому виду (размер, контраст, шум) и превращает в тензор |
 | Модель (PyTorch) | CNN выделяет признаки, BiLSTM читает их как последовательность, CTC превращает её в символы |
 | Обучение + метрики | Обучает модель на датасетах и считает качество по CER и WER |
-| Датасеты | IAM, CVL, Russian Handwritten: изображения с правильными расшифровками |
+| Датасеты | School Notebooks Dataset: изображения с правильными расшифровками |
 | Веса модели | Файл с параметрами обученной модели; обучение записывает его, распознавание загружает |
 
 ## Сценарии
@@ -88,7 +88,7 @@ actor "Пользователь" as User
 [Предобработка\n(OpenCV, Pillow, numpy)] as Pre
 [Модель PyTorch\nCNN + BiLSTM + CTC] as Model
 [Обучение + метрики\nCER / WER] as Train
-database "Датасеты\nIAM, CVL, Russian Handwritten" as DS
+database "Датасеты\nSchool Notebooks Dataset" as DS
 database "Веса модели" as W
 
 User --> CLI : изображение
