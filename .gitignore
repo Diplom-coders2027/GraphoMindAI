@@ -228,3 +228,7 @@ _minted-*
 ~*.xls*
 ~*.ppt*
 *.tmp
+
+data/
+models/
+results.csv
