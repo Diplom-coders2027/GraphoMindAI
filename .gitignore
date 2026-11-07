@@ -238,3 +238,6 @@ data_notebooks/
 *.zip
 
 .gradio/
+
+.gradio/
+__pycache__/
