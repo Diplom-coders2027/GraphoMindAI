@@ -232,3 +232,9 @@ _minted-*
 data/
 models/
 results.csv
+
+data_notebooks/
+
+*.zip
+
+.gradio/
