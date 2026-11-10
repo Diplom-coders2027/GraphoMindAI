@@ -241,3 +241,5 @@ data_notebooks/
 
 .gradio/
 __pycache__/
+
+src/test_page*
