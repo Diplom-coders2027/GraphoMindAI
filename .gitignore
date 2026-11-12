@@ -243,3 +243,7 @@ data_notebooks/
 __pycache__/
 
 src/test_page*
+
+data_notebooks_crops/
+
+to_teacher/
