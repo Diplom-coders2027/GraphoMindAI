@@ -248,5 +248,6 @@ data_notebooks_crops/
 
 to_teacher/
 
-trained_models/
 *.pt
+!trained_models/*.pt
+!trained_models/results.csv
