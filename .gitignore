@@ -247,3 +247,7 @@ src/test_page*
 data_notebooks_crops/
 
 to_teacher/
+
+*.pt
+!trained_models/*.pt
+!trained_models/results.csv
