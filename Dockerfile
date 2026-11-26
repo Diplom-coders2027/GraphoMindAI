@@ -1,14 +1,22 @@
-# ==============================================================================
-# Стартовый Dockerfile проекта
-# Замените его содержимое на образ вашего стека (Python, Node.js, Go, Java и т.д.)
-# ==============================================================================
 
-FROM alpine:latest
+FROM python:3.12-slim
 
 WORKDIR /app
 
-# Копирование исходного кода проекта
-COPY ./src /app/src
+# Системные зависимости OpenCV
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
 
-# Заглушка команды по умолчанию (замените на команду запуска вашего сервиса)
-CMD ["sh", "-c", "echo 'Сервис запущен! Замените Dockerfile на конфигурацию вашего стека.' && sleep infinity"]
+# Установка Python-зависимостей
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Копирование проекта
+COPY src/ ./src/
+COPY trained_models/ ./trained_models/
+
+EXPOSE 7860
+
+CMD ["python", "src/app.py"]
