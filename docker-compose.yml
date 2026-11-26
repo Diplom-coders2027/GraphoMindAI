@@ -7,4 +7,4 @@ services:
     container_name: graphomindai
     restart: unless-stopped
     ports:
-      - "7860:7860"
+  - "${APP_PORT:-7860}:7860"
